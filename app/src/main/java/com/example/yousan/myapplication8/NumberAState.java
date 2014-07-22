@@ -25,22 +25,26 @@ public class NumberAState implements State {
     public void onInputOperation(Context context, Operation op) {
         context.savedisplayNumberToA();
         context.setOp(op);
-        context.changeState();
-
+        context.changeState(OperationState.getInstane());
     }
 
     @Override
     public void onInputEqual(Context context) {
-
+        context.saveDisplayNumberToA();
+        context.showDisplay(context.getA());
+        context.changeState(ResultState.getInstance());
     }
 
     @Override
     public void onInputClear(Context context) {
-
+        context.clearA();
+        context.clearDisplay();
     }
 
     @Override
     public void onInputAllClear(Context context) {
-
+        context.clearA();
+        context.clearB();
+        context.clearDisplay();
     }
 }
