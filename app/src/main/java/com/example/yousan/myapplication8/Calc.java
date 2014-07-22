@@ -1,6 +1,9 @@
 package com.example.yousan.myapplication8;
 
 
+import android.widget.TextView;
+import android.widget.Toast;
+
 /**
  * Created by yousan on 2014/07/18.
  */
@@ -10,6 +13,7 @@ public class Calc implements Context {
     private Operation op;
     protected AbstractDisplay disp;
     protected State state;
+    protected android.content.Context parent;
 
     public Calc() {
         A = 0d;
@@ -134,6 +138,9 @@ public class Calc implements Context {
 
     @Override
     public void setError() {
+        if (parent != null) {
+            Toast.makeText(parent, "Error", Toast.LENGTH_LONG).show();
+        }
         disp.setError();
     }
 
@@ -148,5 +155,14 @@ public class Calc implements Context {
             disp.minus = !disp.minus;
             disp.showDisplay(false);
         }
+    }
+
+    public void setDisp(TextView txt, android.content.Context parent) {
+        this.disp = new StringDisplay(txt);
+        this.parent = parent;
+    }
+
+    public void onButtonOp(Operation op) {
+        state.onInputOperation(this, op);
     }
 }

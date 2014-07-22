@@ -119,7 +119,7 @@ public class StringDisplay extends AbstractDisplay {
         StringBuffer formatStr = new StringBuffer();
         formatStr.append("%.");
         formatStr.append(String.valueOf(DISPLAY_DIGIT));
-        formatStr.append("%");
+        formatStr.append("f");
         String numberString = String.format(formatStr.toString(), Math.abs(d));
 
         for (int i = 0; i < numberString.length(); i++) {
