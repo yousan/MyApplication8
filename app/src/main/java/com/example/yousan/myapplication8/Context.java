@@ -4,8 +4,8 @@ package com.example.yousan.myapplication8;
  * Created by yousan on 2014/07/18.
  */
 public interface Context {
-    public abstract void changeState();
-    public abstract double doOperation();
+    public abstract void changeState(State state);
+    public abstract double doOperation() throws CalcException;
     void showDisplay();
     public abstract void showDisplay(double d);
     public abstract void addDisplayNumber(Number num);

@@ -1,13 +1,14 @@
 package com.example.yousan.myapplication8;
 
+
 /**
  * Created by yousan on 2014/07/18.
  */
-public class Clac implements Context {
+public class Calc implements Context {
     private double A;
     private double B;
     private Operation op;
-    protected AbstarctDisplay disp;
+    protected AbstractDisplay disp;
     protected State state;
 
     public Calc() {
@@ -15,7 +16,6 @@ public class Clac implements Context {
         B = 0d;
         op = null;
         changeState(NumberAState.getInstance());
-        disp = new StringDisplay();
     }
 
     public void onButtonNumber(Number num) {
@@ -35,14 +35,21 @@ public class Clac implements Context {
     }
 
     @Override
-    public void changeState() {
-
+    public void changeState(State state) {
+        this.state = state;
     }
 
     @Override
-    public double doOperation() {
+    public double doOperation() throws CalcException {
         double result = op.eval(A, B);
+        if (Double.isInfinite(result) || Double.isNaN(result)) {
+            throw new CalcException();
+        }
         showDisplay(result);
+
+        if (disp.isOverflow(result)) {
+            throw new CalcException();
+        }
         return result;
     }
 
@@ -53,7 +60,7 @@ public class Clac implements Context {
 
     @Override
     public void showDisplay(double d) {
-        disp.setNumbe(d);
+        disp.setNumber(d);
         disp.showDisplay(true);
     }
 

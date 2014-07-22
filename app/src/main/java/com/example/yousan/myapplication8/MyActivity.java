@@ -7,6 +7,8 @@ import android.view.MenuItem;
 
 
 public class MyActivity extends Activity {
+    Calc calc = new Calc();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

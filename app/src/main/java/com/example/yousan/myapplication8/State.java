@@ -1,6 +1,6 @@
 package com.example.yousan.myapplication8;
 
-import android.content.Context;
+import com.example.yousan.myapplication8.Context;
 
 /**
  * Created by yousan on 2014/07/18.
@@ -11,5 +11,4 @@ public interface State {
     public abstract void onInputEqual(Context context);
     public abstract void onInputClear(Context context);
     public abstract void onInputAllClear(Context context);
-
 }

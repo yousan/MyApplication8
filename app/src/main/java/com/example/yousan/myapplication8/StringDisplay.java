@@ -94,15 +94,53 @@ public class StringDisplay extends AbstractDisplay {
     public double getNumber() {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < displayChar.size(); i++) {
-            String str = displayChar(i);
+            String str = displayChar.get(i);
             sb.append(str);
         }
-        return 0;
+
+        if (commaMode && decimalPlaces > 0) {
+            sb.insert(sb.length() - decimalPlaces, ".");
+        }
+
+        if (minus) {
+            sb.insert(0, "-");
+        }
+
+        try {
+            return Double.parseDouble(sb.toString());
+        } catch (Exception e) {
+            return 0d;
+        }
     }
 
     @Override
     public void setNumber(double d) {
+        this.clear();
+        StringBuffer formatStr = new StringBuffer();
+        formatStr.append("%.");
+        formatStr.append(String.valueOf(DISPLAY_DIGIT));
+        formatStr.append("%");
+        String numberString = String.format(formatStr.toString(), Math.abs(d));
 
+        for (int i = 0; i < numberString.length(); i++) {
+            char chr = numberString.charAt(i);
+            displayChar.push(String.valueOf(chr));
+            if (chr != '.') {
+                displayChar.push(String.valueOf(chr));
+                if (commaMode) {
+                    decimalPlaces++;
+                }
+            } else {
+                commaMode = true;
+            }
+
+            if (displayChar.size() >= DISPLAY_DIGIT) {
+                break;
+            }
+        }
+        if (d < 0) {
+            minus = true;
+        }
     }
 
     @Override
